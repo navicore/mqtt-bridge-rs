@@ -1,0 +1,14 @@
+in_topic = "outme"
+out_topic = "inme"
+
+[in_client]
+url = "localhost:1883"
+username = "admin"
+password = "admin"
+tls = false
+
+[out_client]
+url = "localhost:1883"
+username = "admin"
+password = "admin"
+tls = false
