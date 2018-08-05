@@ -7,7 +7,7 @@ ARG rust_revision="1.28.0"
 # Base image
 ################################################################################
 
-FROM resin/%%RESIN_MACHINE_NAME%%-debian as base
+FROM debian as base
 
 ENV INITSYSTEM=on
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,20 +19,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 FROM base as rust
 
 # Install build tools
-RUN apt-get -q update && apt-get install -yq --no-install-recommends build-essential curl file pkg-config libssl-dev
-
+RUN apt-get -q update && apt-get install -yq --no-install-recommends sudo ca-certificates build-essential curl file pkg-config libssl-dev openssl autoconf bison gzip libreadline-dev patch sed zlib1g-dev
 ENV PATH=/root/.cargo/bin:$PATH
 
-
-################################################### 
-# ejs NOTE won't build on zero without this bs    #
-# ejs TODO: make script know arm6l vs arm7l vs... #
-################################################### 
-# https://github.com/rust-lang-nursery/rustup.rs/issues/1055
-# for rpi 3+
-#RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv7l"; else /bin/uname-orig $@; fi;' > `which uname`
-# for rpi zero
-RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv6l"; else /bin/uname-orig $@; fi;' > `which uname`
+RUN mkdir -p /build/openssl && curl -s https://www.openssl.org/source/openssl-1.0.2l.tar.gz | tar -C /build/openssl -xzf - && \
+    cd /build/openssl/openssl-1.0.2l && \
+    ./Configure \
+      --openssldir=/opt/openssl/openssl-1.0.2 \
+      shared linux-x86_64 && \
+    make && make install_sw
 
 # Install specific version of Rust (see ARG)
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --revision=${rust_revision}
@@ -42,7 +37,10 @@ RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --revision=${
 ################################################################################
 
 FROM rust as builder
-ENV OPENSSL_DIR=/usr
+
+ENV OPENSSL_INCLUDE_DIR=/opt/openssl/openssl-1.0.2/include
+ENV OPENSSL_LIB_DIR=/opt/openssl/openssl-1.0.2/lib
+ENV OPENSSL_STATIC=yes
 
 COPY . /build/app
 

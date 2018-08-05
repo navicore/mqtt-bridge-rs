@@ -1,4 +1,4 @@
-ENV.sh
+*ENV.sh
 /target
 **/*.rs.bk
 .idea/
