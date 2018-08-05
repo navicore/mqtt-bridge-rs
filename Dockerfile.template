@@ -64,8 +64,9 @@ FROM rust as builder
 # We do not want to download deps, update registry, ... again
 COPY --from=dependencies /root/.cargo /root/.cargo
 
-# Copy everything, not just source code
-COPY . /build/app
+COPY src /build/app/src
+COPY config /build/app/config
+COPY Cargo.* /build/app/
 
 # Update already built deps from dependencies image
 COPY --from=dependencies /build/app/target /build/app/target
