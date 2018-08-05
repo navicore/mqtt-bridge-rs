@@ -29,7 +29,9 @@ ENV PATH=/root/.cargo/bin:$PATH
 # ejs TODO: make script know arm6l vs arm7l vs... #
 ################################################### 
 # https://github.com/rust-lang-nursery/rustup.rs/issues/1055
+# for rpi 3+
 #RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv7l"; else /bin/uname-orig $@; fi;' > `which uname`
+# for rpi zero
 RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv6l"; else /bin/uname-orig $@; fi;' > `which uname`
 
 # Install specific version of Rust (see ARG)
@@ -58,7 +60,7 @@ FROM base
 # Copy binary from builder image
 WORKDIR /app
 COPY --from=builder /build/app/target/release/mqtt-bridge-rs .
-COPY --from=builder /build/app/config .
+COPY --from=builder /build/app/config config/
 
 # Copy other folders required by the application. Example:
 #
