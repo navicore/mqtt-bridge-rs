@@ -70,7 +70,7 @@ COPY --from=dependencies /root/.cargo /root/.cargo
 COPY . /build/app
 
 # Update already built deps from dependencies image
-COPY --from=dependencies /build/app/target /build/app/target
+#COPY --from=dependencies /build/app/target /build/app/target
 
 # Build real app
 WORKDIR /build/app
