@@ -67,9 +67,7 @@ ENV OPENSSL_DIR=/usr
 # We do not want to download deps, update registry, ... again
 COPY --from=dependencies /root/.cargo /root/.cargo
 
-COPY src /build/app/src
-COPY config /build/app/config
-COPY Cargo.* /build/app/
+COPY . /build/app
 
 # Update already built deps from dependencies image
 COPY --from=dependencies /build/app/target /build/app/target
