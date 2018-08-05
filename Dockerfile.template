@@ -48,7 +48,6 @@ COPY . /build/app
 
 # Build real app
 WORKDIR /build/app
-RUN rm -rf target/release/mqtt*
 RUN cargo build --release
 
 ################################################################################
@@ -61,10 +60,6 @@ FROM base
 WORKDIR /app
 COPY --from=builder /build/app/target/release/mqtt-bridge-rs .
 COPY --from=builder /build/app/config config/
-
-# Copy other folders required by the application. Example:
-#
-# COPY --from=builder /build/app/assets ./assets
 
 # Launch application
 CMD ["/app/mqtt-bridge-rs"]
