@@ -32,7 +32,7 @@ ENV PATH=/root/.cargo/bin:$PATH
 # for rpi 3+
 #RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv7l"; else /bin/uname-orig $@; fi;' > `which uname`
 # for rpi zero
-#RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv6l"; else /bin/uname-orig $@; fi;' > `which uname`
+RUN cp `which uname` /bin/uname-orig && echo '#!/bin/bash\nif [[ $1 == "-m" ]]; then echo "armv6l"; else /bin/uname-orig $@; fi;' > `which uname`
 
 # Install specific version of Rust (see ARG)
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --revision=${rust_revision}
