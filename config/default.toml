@@ -1,5 +1,5 @@
-in_topic = "outme"
-out_topic = "inme"
+in_topic = "in"
+out_topic = "out"
 
 [in_client]
 url = "localhost:1883"
