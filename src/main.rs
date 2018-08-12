@@ -57,9 +57,7 @@ fn main() {
                             Err(err) => panic!("publish err: {:?}", &err),
                         }
                     }
-                    Err(err) => {
-                        panic!("not able to unrwrap = {:?}", &err);
-                    }
+                    Err(err) => panic!("not able to try_unrwrap = {:?}", &err),
                 }
             }
             Ok(_) => (), // None timeout
