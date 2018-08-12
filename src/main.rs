@@ -53,7 +53,7 @@ fn main() {
                             msg,
                             PubOpt::at_least_once(),
                         ) {
-                            Ok(_) => println!("published ok"),
+                            Ok(_) => (), //sent ok
                             Err(e) => panic!("publish err: {:?}", &e),
                         }
                     }
@@ -62,7 +62,7 @@ fn main() {
                     }
                 }
             }
-            Ok(t) => println!("not Some timeout?: {:?}", &t),
+            Ok(_) => (), // None timeout
             Err(_) => (panic!("unknown")),
         }
     }
