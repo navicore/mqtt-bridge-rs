@@ -48,16 +48,21 @@ fn main() {
                 match Arc::try_unwrap(message.payload) {
                     Ok(text) => {
                         let msg = str::from_utf8(&text).unwrap();
-                        out_client
-                            .publish(settings.out_topic.clone(), msg, PubOpt::at_least_once())
-                            .ok();
+                        match out_client.publish(
+                            settings.out_topic.clone(),
+                            msg,
+                            PubOpt::at_least_once(),
+                        ) {
+                            Ok(_) => println!("published ok"),
+                            Err(e) => panic!("publish err: {:?}", &e),
+                        }
                     }
                     Err(err) => {
                         panic!("not ok = {:?}", &err);
                     }
                 }
             }
-            Ok(_) => (), // timeout
+            Ok(t) => println!("not Some timeout?: {:?}", &t),
             Err(_) => (panic!("unknown")),
         }
     }
