@@ -54,16 +54,16 @@ fn main() {
                             PubOpt::at_least_once(),
                         ) {
                             Ok(_) => (), //sent ok
-                            Err(e) => panic!("publish err: {:?}", &e),
+                            Err(err) => panic!("publish err: {:?}", &err),
                         }
                     }
                     Err(err) => {
-                        panic!("not ok = {:?}", &err);
+                        panic!("not able to unrwrap = {:?}", &err);
                     }
                 }
             }
             Ok(_) => (), // None timeout
-            Err(_) => (panic!("unknown")),
+            Err(err) => (panic!("not able to read from broker = {:?}", &err)),
         }
     }
 }
