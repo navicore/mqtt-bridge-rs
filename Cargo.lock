@@ -60,7 +60,7 @@ dependencies = [
  "lazy_static 1.0.2",
  "nom",
  "rust-ini",
- "serde 1.0.70",
+ "serde 1.0.147",
  "serde-hjson",
  "serde_json",
  "toml",
@@ -278,7 +278,7 @@ dependencies = [
  "mqtt3",
  "mqttc",
  "netopt",
- "serde 1.0.70",
+ "serde 1.0.147",
  "serde_derive",
  "ws",
 ]
@@ -502,9 +502,9 @@ checksum = "9dad3f759919b92c3068c696c15c3d17238234498bbdcc80f2c469606f948ac8"
 
 [[package]]
 name = "serde"
-version = "1.0.70"
+version = "1.0.147"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0c3adf19c07af6d186d91dae8927b83b0553d07ca56cbf7f2f32560455c91920"
+checksum = "d193d69bae983fc11a79df82342761dfbf28a99fc8d203dca4c3c1b590948965"
 
 [[package]]
 name = "serde-hjson"
@@ -538,7 +538,7 @@ checksum = "c3c6908c7b925cd6c590358a4034de93dbddb20c45e1d021931459fd419bf0e2"
 dependencies = [
  "dtoa",
  "itoa",
- "serde 1.0.70",
+ "serde 1.0.147",
 ]
 
 [[package]]
@@ -614,7 +614,7 @@ version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a0263c6c02c4db6c8f7681f9fd35e90de799ebd4cfdeab77a38f4ff6b3d8c0d9"
 dependencies = [
- "serde 1.0.70",
+ "serde 1.0.147",
 ]
 
 [[package]]
