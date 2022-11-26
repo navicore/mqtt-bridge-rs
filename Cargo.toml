@@ -10,5 +10,5 @@ mqttc = "0.1.4"
 ws = "0.7.6"
 config = "0.9"
 serde_derive = "^1.0.147"
-serde = "^1.0.8"
+serde = "^1.0.147"
 
